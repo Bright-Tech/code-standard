@@ -1,30 +1,28 @@
-基本编码规范
+基本编码规范 - PHP
 =====================
 
-1. 
------------
-###为什么要规范代码
-制订编码规范的目的是在多人协作时，能够更好的共享代码，<br />
-确保每个人在更新和集成代码时更加方便，同时使多人的代码在同一环境下表现一致。
-###使用什么规范
-我们使用通用的 [PSR](https://github.com/php-fig/fig-standards/ "Title") 规范来进行代码规范
+制订编码规范的目的是在多人协作时，能够更好的共享代码，确保每个人在更新和集成代码时更加方便，同时使多人的代码在同一环境下表现一致。
+我们使用通用的 [PSR][PSR] 规范来进行代码规范，如果本编码规范和[PSR][PSR]规范相冲突，请及时告知，谢谢。<br/>
 
+* 文中使用“必须”说明的条目意味着此条目为绝对性要求，必须符合。
+* 文中使用“应当”说明的条目意味着此条目为推荐性要求，特定的情况下有可能正当的理由忽略此条目，但当你选择另一种方式时必须经过了解和仔细权衡。
 
-2. 整体要求
+[PSR]: https://github.com/php-fig/fig-standards
+[PSR-0]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
+[驼峰命名法]:http://baike.baidu.com/link?url=OTIuT_UfbS7mRun5wnkY2kvnBLQiLgmFXfun1TYgWn9TujDw1ot0TbkrpbUSVjBfZ232v9UpvsXADIvMe2XL0FmuvbuVNQIyrLry0C3oOr-UzV9EUTXCzRIJvUvl_q4EAvxeox6MmRVPt9MOubRvzjgQqmAD-XFFdkFEW7cpl2dVUpnF9zwUlab7F0DUCMjm
+
+1. 总体要求
 -----------
-- PHP文件必须只使用 `<?php` and `<?=` 标签, 不允许使用短标签 '<? ?>'。
-- PHP文件必须只使用 UTF-8 without BOM 编码。
-- 类名必须使用驼峰命名法命名， 例如 `StudlyCaps`。
+- 文件必须只能使用 `<?php` and `<?=` 标签, 不允许使用短标签 '<? ?>'。
+- 文件必须只能使用 UTF-8 without BOM 编码。
+- 文件应该进行声明（类、函数、常量等）或实现某些功能（例如生成，输出，改变ini设置等），但不应都做
+- 命名空间和类名必须遵守[PSR-4][PSR-4].
+- 类名必须使用[驼峰命名法][驼峰命名法]命名，每个单词首字母大写，例如 `StudlyCaps`。
 - 类中的常量必须全部使用大写，并使用_(下划线)作为单词之间的分割符， 例如 'CONSTANTS_NAME'。
-- 方法名必须使用驼峰命名法命名，第一个单词的首字母要小写例如 `camelCase`。
+- 方法名必须使用[驼峰命名法][驼峰命名法]命名，第一个单词的首字母要小写，例如 `camelCase`。
 - 使用4个空格代替Tab
 - 去掉行尾空格
-
-强烈推荐使用 Zend Studio 的 Code Format 功能格式化代码。 快捷键为 ( Ctrl + Shift + F );<br>
-导入方式 ( 在 Window -> Preferences -> PHP -> Code Style -> Formatter 中点击 Import)
-
-Zend Studio 中的 文件编码格式 需要被设定为 UTF-8( 在 Window -> Preferences -> General -> Workspace 修改 Text File Encoding 为 UTF-8 );<br>
-Zend Studio中增加自动删除行尾空格的方法为Window -> Preferences -> PHP -> Editor ->Save Actions
 
 2. 文件
 --------
@@ -305,4 +303,10 @@ switch 语句应当有 default。
  *   Update data into database
  **/
 
+IDE
+---------------
+强烈推荐使用 Zend Studio 的 Code Format 功能格式化代码。 快捷键为 ( Ctrl + Shift + F );<br>
+导入方式 ( 在 Window -> Preferences -> PHP -> Code Style -> Formatter 中点击 Import)
 
+Zend Studio 中的 文件编码格式 需要被设定为 UTF-8( 在 Window -> Preferences -> General -> Workspace 修改 Text File Encoding 为 UTF-8 );<br>
+Zend Studio中增加自动删除行尾空格的方法为Window -> Preferences -> PHP -> Editor ->Save Actions
