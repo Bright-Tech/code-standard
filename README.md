@@ -7,7 +7,7 @@
 * 文中使用“必须”说明的条目意味着此条目为绝对性要求，必须符合。
 * 文中使用“应当”说明的条目意味着此条目为推荐性要求，特定的情况下有可能正当的理由忽略此条目，但当你选择另一种方式时必须经过了解和仔细权衡。
 
-[PSR]: https://github.com/php-fig/fig-standards
+[PSR]: https://github.com/php-fig/fig-standards/tree/master/accepted
 [PSR-0]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 [驼峰命名法]:http://baike.baidu.com/link?url=OTIuT_UfbS7mRun5wnkY2kvnBLQiLgmFXfun1TYgWn9TujDw1ot0TbkrpbUSVjBfZ232v9UpvsXADIvMe2XL0FmuvbuVNQIyrLry0C3oOr-UzV9EUTXCzRIJvUvl_q4EAvxeox6MmRVPt9MOubRvzjgQqmAD-XFFdkFEW7cpl2dVUpnF9zwUlab7F0DUCMjm
@@ -16,16 +16,78 @@
 -----------
 - 文件必须只能使用 `<?php` and `<?=` 标签, 不允许使用短标签 '<? ?>'。
 - 文件必须只能使用 UTF-8 without BOM 编码。
-- 文件应该进行声明（类、函数、常量等）或实现某些功能（例如生成，输出，改变ini设置等），但不应都做
-- 命名空间和类名必须遵守[PSR-4][PSR-4].
+- 文件应该进行声明（类、函数、常量等）或实现某些功能（例如生成，输出，改变ini设置等），但不应都做。
+- 命名空间和类名必须遵守[PSR-4][PSR-4]。
 - 类名必须使用[驼峰命名法][驼峰命名法]命名，每个单词首字母大写，例如 `StudlyCaps`。
 - 类中的常量必须全部使用大写，并使用_(下划线)作为单词之间的分割符， 例如 'CONSTANTS_NAME'。
 - 方法名必须使用[驼峰命名法][驼峰命名法]命名，第一个单词的首字母要小写，例如 `camelCase`。
-- 使用4个空格代替Tab
-- 去掉行尾空格
+- 使用4个空格代替Tab。
+- 去掉行尾空格。
 
 2. 文件
 --------
+
+### 2.1. PHP Tags
+
+PHP代码必须使用长标记`<?php ?>` 或短标记 `<?= ?>`。必须不能使用其他的PHP标记
+
+### 2.2. 字符编码
+
+PHP代码必须只能使用 UTF-8 without BOM 编码.
+
+### 2.3. 单功能原则
+
+一个文件应当只声明新符号(类、函数、常量等), 不会产生副作用; 或者应当执行逻辑，产生副作用，但是不应当两者都做。
+
+"产生副作用" 意味着执行逻辑并不直接关联到声明类、函数、常量等，
+
+
+"Side effects" include but are not limited to: generating output, explicit
+use of `require` or `include`, connecting to external services, modifying ini
+settings, emitting errors or exceptions, modifying global or static variables,
+reading from or writing to a file, and so on.
+
+The following is an example of a file with both declarations and side effects;
+i.e, an example of what to avoid:
+
+    ~~~php
+    <?php
+    // side effect: change ini settings
+    ini_set('error_reporting', E_ALL);
+
+    // side effect: loads a file
+    include "file.php";
+
+    // side effect: generates output
+    echo "<html>\n";
+
+    // declaration
+    function foo()
+    {
+        // function body
+    }
+    ~~~
+
+    The following example is of a file that contains declarations without side
+    effects; i.e., an example of what to emulate:
+
+    ~~~php
+    <?php
+    // declaration
+    function foo()
+    {
+        // function body
+    }
+
+    // conditional declaration is *not* a side effect
+    if (! function_exists('bar')) {
+        function bar()
+        {
+            // function body
+        }
+    }
+    ~~~
+
 - 对于只包含有 PHP 代码的文件，结束标志（"?>"）是不允许存在的，PHP自身不需要（"?>"）。
 - PHP文件必须只使用 UTF-8 without BOM 编码。
 - 只能在View层执行输出，不能在Controller和Model层执行输出。
